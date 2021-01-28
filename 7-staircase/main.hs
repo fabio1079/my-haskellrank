@@ -1,12 +1,7 @@
-symbols :: Int -> [Char]
-symbols n
+chars :: Int -> Char -> [Char]
+chars n c
   | n <= 0 = []
-  | otherwise = '#':symbols (n-1)
-
-spaces :: Int -> [Char]
-spaces n
-  | n <= 0    = []
-  | otherwise = ' ':spaces (n-1)
+  | otherwise = c:chars (n-1) c
 
 --   #: 2 sp ++ 1 sy
 --  ##: 1 sp ++ 2 sy
@@ -16,7 +11,7 @@ staircase sp sy
   | sp == 0   = []
   | otherwise = line:staircase (sp-1) (sy+1)
     where
-      line = spaces (sp-1) ++ symbols sy
+      line = chars (sp-1) ' ' ++ chars sy '#'
 
 solve :: Int -> [[Char]]
 solve n = staircase n 1
